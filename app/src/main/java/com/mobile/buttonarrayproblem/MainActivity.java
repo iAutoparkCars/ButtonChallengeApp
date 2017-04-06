@@ -1,3 +1,7 @@
+//Bonilla, Steven's Button coding challenge for software intern, Summer 2017
+
+//I made my challenge into the form of an app with three test cases!
+
 package com.mobile.buttonarrayproblem;
 import android.content.Context;
 import android.view.View;
@@ -27,8 +31,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //activity_main set as layout. Write your code here
-
         //initialize buttons
         Button testOne   =  (Button) findViewById(R.id.test1);
         Button testTwo   =  (Button) findViewById(R.id.test2);
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    //my subclass that handles the structure-flattening
     public class MyOnClickListener implements View.OnClickListener
     {
         //variables for Toast
