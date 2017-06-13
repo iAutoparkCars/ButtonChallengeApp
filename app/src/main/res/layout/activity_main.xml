@@ -32,24 +32,7 @@
         android:layout_height="match_parent">
 
 
-        <Button
-            android:id="@+id/test1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="10dp"
-            android:text="test1"
-
-            android:textColor="#FFFFFF"
-            android:background="@drawable/button_style"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="3"
-            android:shadowDy="3"
-            android:shadowRadius="5"
-
-            />
-
-        <Button
+        <!--<Button
             android:id="@+id/test2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,23 +46,7 @@
             android:shadowDx="3"
             android:shadowDy="3"
             android:shadowRadius="5"
-            />
-        <Button
-
-            android:id="@+id/test3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="250dp"
-            android:layout_marginTop="8dp"
-            android:text="test3"
-
-            android:textColor="#FFFFFF"
-            android:background="@drawable/button_style"
-            android:shadowColor="#A8A8A8"
-            android:shadowDx="3"
-            android:shadowDy="3"
-            android:shadowRadius="5"
-            />
+            />-->
 
         <Button
             android:id="@+id/result"
@@ -103,10 +70,53 @@
             android:src="@drawable/button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-
-
             />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <!--max input set to one line -->
+            <EditText
+                android:id="@+id/editTextInput"
+                android:layout_width="230dp"
+                android:layout_height="50dp"
+                android:layout_margin="16dp"
+                android:background="@android:color/background_dark"
+                android:clipChildren="false"
+                android:fontFamily="sans-serif-light"
+                android:textCursorDrawable="@null"
+
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+
+                android:hint="      ExampleArray: [3, 1, 2]"
+                android:textColorHint="@android:color/secondary_text_light_nodisable"
+
+                android:inputType="text"
+                android:maxLines="1"
+                />
+
+            <Button
+                android:id="@+id/enter_input"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_style"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="3"
+                android:shadowDy="3"
+                android:shadowRadius="5"
+                android:layout_toRightOf="@id/editTextInput"
+                android:text="Enter"
+                android:textColor="#FFFFFF"
+                android:layout_alignBaseline="@+id/editTextInput"
+                android:layout_alignBottom="@+id/editTextInput"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+
+
+        </RelativeLayout>
 
 
 

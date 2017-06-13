@@ -4,7 +4,9 @@
 
 package com.mobile.buttonarrayproblem;
 import android.content.Context;
+import android.text.Spanned;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -15,10 +17,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.text.InputFilter;
 
 import java.util.ArrayList;
 
-import static com.mobile.buttonarrayproblem.R.id.test1;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -32,9 +34,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         //initialize buttons
-        Button testOne   =  (Button) findViewById(R.id.test1);
-        Button testTwo   =  (Button) findViewById(R.id.test2);
-        Button testThree =  (Button) findViewById(R.id.test3);
+        final EditText testOne   =  (EditText) findViewById(R.id.editTextInput);
+        final Button enterButton  =  (Button) findViewById(R.id.enter_input);
         Button flatten   =  (Button) findViewById(R.id.result);
 
         //creating my objects
@@ -43,11 +44,38 @@ public class MainActivity extends AppCompatActivity
         MyOnClickListener t3 = new MyOnClickListener(MainActivity.this,"test3");
         MyOnClickListener res = new MyOnClickListener(MainActivity.this,"flatten");
 
+        //filter invalid input
+        testOne.setFilters(new InputFilter[] { new InputFilter() {
+            @Override
+            public CharSequence filter(final CharSequence source, final int start, final int end, final Spanned dest, final int dStart, final int dEnd) {
+                for (int i = start; i < end; i++) {
+                    if (!(source.charAt(i) == '[') && !(source.charAt(i) == ']') && !(source.charAt(i) == ' ')
+                            && !(source.charAt(i) == ',')
+                            && !Character.isLetterOrDigit(source.charAt(i)) )
+                    {
+                        Toast.makeText(MainActivity.this, "Invalid input.", Toast.LENGTH_SHORT).show();
+                        return "";
+                    }
+                }
+                return null;
+            }
+        } });
 
         //buttons listen for clicks
-        testOne.setOnClickListener(t1);
-        testTwo.setOnClickListener(t2);
-        testThree.setOnClickListener(t3);
+        enterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String userInput = testOne.getText().toString();
+                enterButton.clearAnimation();
+                //I can just read, parse, process here.
+                //the "flatten" button can just print
+
+                //Toast.makeText(MainActivity.this, userInput, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //testTwo.setOnClickListener(t2);
+        //testThree.setOnClickListener(t3);
         flatten.setOnClickListener(res);
 
         //initialize ImageView
