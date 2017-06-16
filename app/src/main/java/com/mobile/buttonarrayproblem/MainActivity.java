@@ -5,7 +5,9 @@
 package com.mobile.buttonarrayproblem;
 import android.content.Context;
 import android.text.Spanned;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,9 +26,11 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
 {
+    public static final String TAG = MainActivity.class.getName();
+
     //result structure is used to avoid copying over elements
     public ArrayList<Object> result = new ArrayList<Object>();
-
+    String inputToFlatten = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +65,38 @@ public class MainActivity extends AppCompatActivity
             }
         } });
 
+
+
         //buttons listen for clicks
         enterButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
+
+                //Log.d(TAG,"you clicked Enter");
+
+                //next 4 lines of code close the keyboard
+                InputMethodManager inputManager = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+
                 String userInput = testOne.getText().toString();
-                enterButton.clearAnimation();
+                testOne.setText("");
+                Toast.makeText(MainActivity.this, userInput + " entered.", Toast.LENGTH_SHORT).show();
+
+                Parse ps = new Parse(userInput);
+                Boolean result = ps.isBalanced();
+                if (ps.isBalanced())
+                {
+                    inputToFlatten = userInput;
+                }
+                else
+                {
+                    Toast.makeText(MainActivity.this, "But brackets unbalanced.", Toast.LENGTH_SHORT).show();
+                }
+
                 //I can just read, parse, process here.
                 //the "flatten" button can just print
 
@@ -121,36 +151,19 @@ public class MainActivity extends AppCompatActivity
 
         public void performAction()
         {
-
-            if (action.equals("test1"))
-            {
-                flattenStructure(tripleDimensionTest(arr,subarr1,subarr2));
-
-                String resultMsg = "Structure: [[[3dimension!],null],null,null,null,null]";
-                Toast.makeText(context, resultMsg, Toast.LENGTH_SHORT).show();
-            }
-
-            if (action.equals("test2"))
-            {
-                flattenStructure(withNullTest(arr));
-
-                String resultMsg = "Structure: [Is, this, null, convincing, ?]";
-                Toast.makeText(context, resultMsg, Toast.LENGTH_SHORT).show();
-            }
-
-            if (action.equals("test3"))
-            {
-                flattenStructure(nestedTest(arr3,subarr1));
-                String resultMsg = "Structure: [[this, is], convincing, integer, 42, null]";
-
-                //String resultMsg = "Structure: [[this, is], convincing, integer, 42, null]";
-                Toast.makeText(context, resultMsg, Toast.LENGTH_SHORT).show();
-            }
-
+            //TO DO: make Keyboard close when user clicks "ENTER"
             if (action.equals("flatten"))
             {
-                String resultMsg = printResult();
-                Toast.makeText(context, resultMsg, Toast.LENGTH_SHORT).show();
+                if (inputToFlatten == null) {
+                    Toast.makeText(context, "Enter an array first", Toast.LENGTH_SHORT).show();
+                }
+                //print result and "reset" user's input to null + array
+                else {
+                    FlattenString fs = new FlattenString(inputToFlatten);
+                    Toast.makeText(context, fs.getResultList().toString(), Toast.LENGTH_LONG).show();
+                    fs.clearResultList();
+                    inputToFlatten = null;
+                }
             }
         }
 

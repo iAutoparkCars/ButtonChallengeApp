@@ -88,10 +88,13 @@
                 android:textCursorDrawable="@null"
 
                 android:textStyle="bold"
+                android:textSize="19dp"
                 android:textColor="@android:color/white"
 
-                android:hint="      ExampleArray: [3, 1, 2]"
+                android:hint="  ExampleArray: [3 [1] 2]"
                 android:textColorHint="@android:color/secondary_text_light_nodisable"
+
+
 
                 android:inputType="text"
                 android:maxLines="1"
