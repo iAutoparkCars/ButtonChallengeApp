@@ -1,6 +1,6 @@
 //Bonilla, Steven's Button coding challenge for software intern, Summer 2017
 
-//I made my challenge into the form of an app with three test cases!
+
 
 package com.mobile.buttonarrayproblem;
 import android.content.Context;
